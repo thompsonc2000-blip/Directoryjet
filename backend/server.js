@@ -24,6 +24,11 @@ function makeSlug(name) {
 
 // API Routes
 
+// Test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ status: 'ok', env: process.env.VERCEL ? 'vercel' : 'local' });
+});
+
 // 1. Get startup details
 app.get('/api/submissions/:id', async (req, res) => {
   const { id } = req.params;
