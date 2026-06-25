@@ -1,4 +1,23 @@
-const sqlite3 = require('sqlite3').verbose();
+let sqlite3;
+try {
+  sqlite3 = require('sqlite3').verbose();
+} catch (e) {
+  console.error('Failed to load sqlite3:', e);
+  // Mock sqlite3 for Vercel if it fails to load
+  sqlite3 = {
+    Database: class {
+      constructor(path, callback) {
+        console.log('Using Mock Database');
+        if (callback) setTimeout(callback, 0);
+      }
+      serialize(callback) { callback(); }
+      run(sql, params, callback) { if (callback) callback(); }
+      get(sql, params, callback) { if (callback) callback(null, null); }
+      all(sql, params, callback) { if (callback) callback(null, []); }
+    },
+    verbose: () => sqlite3
+  };
+}
 const path = require('path');
 const fs = require('fs');
 
