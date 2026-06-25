@@ -29,6 +29,15 @@ app.get('/api/test', (req, res) => {
   res.json({ status: 'ok', env: process.env.VERCEL ? 'vercel' : 'local' });
 });
 
+app.get('/api/test-db', async (req, res) => {
+  try {
+    const result = await get('SELECT 1 + 1 as sum');
+    res.json({ status: 'ok', result });
+  } catch (e) {
+    res.status(500).json({ status: 'error', message: e.message, stack: e.stack });
+  }
+});
+
 // 1. Get startup details
 app.get('/api/submissions/:id', async (req, res) => {
   const { id } = req.params;
