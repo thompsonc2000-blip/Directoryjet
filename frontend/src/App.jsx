@@ -350,18 +350,7 @@ export default function App() {
               <h2 style={{ fontSize: '32px', marginBottom: '12px' }}>Simple, transparent pricing</h2>
               <p style={{ fontSize: '17px', color: 'var(--text)', marginBottom: '32px' }}>No hidden fees. Choose the tier that matches your startup's growth pace.</p>
 
-              {/* Sandbox mode notice banner */}
-              <div style={{ background: 'var(--accent-bg)', border: '1px solid var(--accent-border)', borderRadius: '8px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px', maxWidth: '650px', margin: '0 auto 40px', textAlign: 'left' }}>
-                <AlertCircle style={{ color: 'var(--accent)', width: '24px', height: '24px', flexShrink: 0 }} />
-                <div>
-                  <h4 style={{ margin: 0, color: 'var(--text-h)', fontWeight: '600', fontSize: '15px' }}>DirectoryJet Sandbox Active</h4>
-                  <p style={{ margin: '4px 0 0', fontSize: '14px', color: 'var(--text)' }}>
-                    Payment processing is currently in <strong>sandbox mode</strong>. Test the full automation engine and interactive dashboard completely for free.
-                  </p>
-                </div>
-              </div>
-
-              {/* Cards layout */}
+              {/* Pricing cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', alignItems: 'stretch' }}>
                 {/* Tier 1: Essential */}
                 <div style={{ background: 'var(--code-bg)', border: '1px solid var(--border)', borderRadius: '12px', padding: '32px 24px', display: 'flex', flexDirection: 'column', textAlign: 'left', position: 'relative' }}>
@@ -696,8 +685,8 @@ export default function App() {
         {/* VIEW 3: CHECKOUT / PAYMENT */}
         {view === 'checkout' && currentStartup && (
           <div style={{ maxWidth: '600px', margin: '0 auto', background: 'var(--code-bg)', border: '1px solid var(--border)', borderRadius: '16px', padding: '32px', textAlign: 'left', boxShadow: 'var(--shadow)' }}>
-            <h2 style={{ fontSize: '28px', color: 'var(--text-h)', marginBottom: '8px', textAlign: 'center' }}>Secure Stripe Sandbox Checkout</h2>
-            <p style={{ color: 'var(--text)', marginBottom: '32px', textAlign: 'center' }}>No real funds are charged. Experience the fully integrated payment-to-submission pipeline.</p>
+            <h2 style={{ fontSize: '28px', color: 'var(--text-h)', marginBottom: '8px', textAlign: 'center' }}>Pay with PayPal</h2>
+            <p style={{ color: 'var(--text)', marginBottom: '32px', textAlign: 'center' }}>Complete your order by sending payment via PayPal.Me.</p>
 
             {/* Invoice summary card */}
             <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '10px', padding: '24px', marginBottom: '24px' }}>
@@ -728,41 +717,45 @@ export default function App() {
               </div>
             </div>
 
-            {/* Simulated credit card input container */}
-            <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: '8px', padding: '16px', marginBottom: '32px' }}>
-              <div style={{ fontSize: '12px', textTransform: 'uppercase', color: 'var(--accent)', fontWeight: '700', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Shield style={{ width: '14px', height: '14px' }} /> Simulated Sandbox Checkout Enabled
+            {/* PayPal Instructions */}
+            <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: '8px', padding: '24px', marginBottom: '32px', textAlign: 'center' }}>
+              <div style={{ fontSize: '14px', color: 'var(--text-h)', fontWeight: '600', marginBottom: '16px' }}>
+                Step 1: Click the button below to pay via PayPal.Me
               </div>
               
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '12px', marginTop: '8px' }}>
-                <input
-                  type="text"
-                  disabled
-                  value="4242 •••• •••• 4242"
-                  style={{ gridColumn: 'span 3', padding: '10px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '6px', color: 'var(--text)', outline: 'none' }}
-                />
-                <input
-                  type="text"
-                  disabled
-                  value="12 / 29"
-                  style={{ padding: '10px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '6px', color: 'var(--text)', outline: 'none' }}
-                />
-                <input
-                  type="text"
-                  disabled
-                  value="420"
-                  style={{ padding: '10px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '6px', color: 'var(--text)', outline: 'none' }}
-                />
-                <input
-                  type="text"
-                  disabled
-                  value="10001"
-                  style={{ padding: '10px', background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '6px', color: 'var(--text)', outline: 'none' }}
-                />
+              <a 
+                href={`https://paypal.me/CindyT102/${currentStartup.plan === 'essential' ? 79 : currentStartup.plan === 'premium' ? 149 : 399}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{ 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  padding: '12px 24px', 
+                  background: '#0070ba', 
+                  color: '#fff', 
+                  borderRadius: '99px', 
+                  textDecoration: 'none', 
+                  fontWeight: 'bold', 
+                  fontSize: '16px',
+                  marginBottom: '20px',
+                  boxShadow: '0 4px 12px rgba(0, 112, 186, 0.3)'
+                }}
+              >
+                Pay ${currentStartup.plan === 'essential' ? 79 : currentStartup.plan === 'premium' ? 149 : 399} with PayPal.Me
+              </a>
+
+              <div style={{ fontSize: '14px', color: 'var(--text)', lineHeight: '1.5' }}>
+                <strong>Important:</strong> Include your Startup ID in the payment note so we can verify your order manually:<br/>
+                <code style={{ fontSize: '14px', background: 'var(--bg)', padding: '4px 8px', borderRadius: '4px', color: 'var(--accent)', fontWeight: 'bold', display: 'inline-block', marginTop: '8px' }}>{currentStartup.id}</code>
               </div>
             </div>
 
-            {/* Giant Sandbox Trigger Button */}
+            <div style={{ fontSize: '14px', color: 'var(--text-h)', fontWeight: '600', marginBottom: '12px', textAlign: 'center' }}>
+              Step 2: After paying, click below to start your submissions
+            </div>
+
+            {/* Confirm Payment Button */}
             <button
               onClick={handleSimulatePayment}
               disabled={isSubmitting}
@@ -770,10 +763,10 @@ export default function App() {
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="animate-spin" style={{ width: '20px', height: '20px' }} /> Completing Checkout...
+                  <Loader2 className="animate-spin" style={{ width: '20px', height: '20px' }} /> Verifying Payment...
                 </>
               ) : (
-                '⚡ Complete Sandbox Payment & Run submissions'
+                "I've Completed Payment — Start Submissions"
               )}
             </button>
           </div>
@@ -920,7 +913,7 @@ export default function App() {
 
       {/* Footer */}
       <footer style={{ borderTop: '1px solid var(--border)', padding: '32px 24px', background: 'var(--code-bg)', color: 'var(--text)', fontSize: '14px', textAlign: 'center', marginTop: '64px' }}>
-        <p>© 2026 DirectoryJet. Crafted for Indie Hackers and SaaS Bootstrappers. Sandbox Testing Active.</p>
+        <p>© 2026 DirectoryJet. Crafted for Indie Hackers and SaaS Bootstrappers.</p>
       </footer>
     </div>
   );

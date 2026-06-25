@@ -8,8 +8,8 @@ This repository houses the complete, lightweight DirectoryJet prototype.
 
 ## 🏗️ Project Architecture & Stack
 
-- **Frontend**: Vite + React, bundled with Lucide icons. Designed with a gorgeous modern dark-theme SaaS landing page, step-by-step rich submission form, mock Stripe payment checkout, and an interactive real-time progress dashboard.
-- **Backend**: Node.js + Express REST API. Handles startup creation, payment simulation, and manual retries.
+- **Frontend**: Vite + React, bundled with Lucide icons. Designed with a gorgeous modern dark-theme SaaS landing page, step-by-step rich submission form, integrated PayPal.Me payment flow, and an interactive real-time progress dashboard.
+- **Backend**: Node.js + Express REST API. Handles startup creation, payment processing, and manual retries.
 - **Database**: SQLite database stored at `/home/team/shared/directoryjet.db`. 
 - **Submission Engine**: A standalone background script (`run_submissions.js`) spawned as a separate child process. It simulates actual browser form filling and submission by transitioning statuses and generating directory-specific live links over time.
 
@@ -31,7 +31,7 @@ Holds detailed profile metadata supplied by the founder:
 - `founder_name`, `founder_email`, `founder_twitter`, `founder_linkedin` (TEXT)
 - `logo_url`, `screenshot_url` (TEXT) - Brand asset links
 - `plan` (TEXT) - Choice of tier (`essential`, `premium`, `agency`)
-- `payment_status` (TEXT) - Checkout state (`pending`, `paid`)
+- `payment_status` (TEXT) - Checkout state (`pending`, `paid`, `submitted_for_review`)
 - `created_at`, `updated_at` (TEXT)
 
 ### 2. `submissions`
@@ -81,8 +81,8 @@ tail -f /tmp/run_submissions.log
 
 ## 🔍 Features Checklist
 
-- [x] **Highly Converting Landing Page**: Features clear pricing cards ($79, $149, $399/mo), value props, and Sandbox Mode banner warnings.
+- [x] **Highly Converting Landing Page**: Features clear pricing cards ($79, $149, $399/mo) and value props.
 - [x] **Comprehensive Form**: Submits detailed brand details, logo images, categories, and founder credentials.
-- [x] **Sandbox payment gateway simulator**: Safely mock a Stripe checkout flow to activate submissions instantly.
+- [x] **PayPal.Me Payment Flow**: Integrated real payment flow using PayPal.Me with Startup ID tracking for manual/automated verification.
 - [x] **Real-time Dashboard Polling**: Client-side component polls status every 2 seconds, displaying progress bars, statistics cards, and directory lists with dynamic status badges (`approved` / `submitted` / `failed` / `submitting` / `pending`).
 - [x] **Retry Trigger**: Users can trigger manual retries on failed directories directly from the dashboard.

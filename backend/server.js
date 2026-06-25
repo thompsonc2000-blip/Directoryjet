@@ -142,7 +142,7 @@ app.post('/api/submissions', async (req, res) => {
   }
 });
 
-// 4. Simulate payment completion
+// 4. Simulate payment completion (Legacy mock checkout, still available)
 app.post('/api/submissions/:id/pay', async (req, res) => {
   const { id } = req.params;
   const now = new Date().toISOString();
@@ -167,6 +167,65 @@ app.post('/api/submissions/:id/pay', async (req, res) => {
     res.json({ success: true, message: 'Payment simulated successfully. Submissions started in background.' });
   } catch (error) {
     console.error('Error simulating payment:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 4b. Submit payment for admin review (PayPal.Me flow)
+app.post('/api/submissions/:id/submit-payment', async (req, res) => {
+  const { id } = req.params;
+  const now = new Date().toISOString();
+
+  try {
+    const startup = await get('SELECT * FROM startups WHERE id = ?', [id]);
+    if (!startup) {
+      return res.status(404).json({ error: 'Startup not found' });
+    }
+
+    await run(
+      'UPDATE startups SET payment_status = ?, updated_at = ? WHERE id = ?',
+      ['submitted_for_review', now, id]
+    );
+
+    res.json({ success: true, message: 'Payment submitted for review.' });
+  } catch (error) {
+    console.error('Error submitting payment for review:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 4c. Admin verify payment and trigger submissions
+app.post('/api/submissions/:id/verify-payment', async (req, res) => {
+  const { id } = req.params;
+  const now = new Date().toISOString();
+
+  try {
+    const startup = await get('SELECT * FROM startups WHERE id = ?', [id]);
+    if (!startup) {
+      return res.status(404).json({ error: 'Startup not found' });
+    }
+
+    await run(
+      'UPDATE startups SET payment_status = ?, updated_at = ? WHERE id = ?',
+      ['paid', now, id]
+    );
+
+    triggerBackgroundSubmissions(id);
+
+    res.json({ success: true, message: 'Payment verified. Submissions started in background.' });
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 4d. Get all startups for Admin Dashboard
+app.get('/api/admin/submissions', async (req, res) => {
+  try {
+    const startups = await all('SELECT * FROM startups ORDER BY created_at DESC');
+    res.json(startups);
+  } catch (error) {
+    console.error('Error fetching admin submissions:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -220,13 +279,13 @@ function triggerBackgroundSubmissions(id) {
 const frontendDistPath = path.join(__dirname, '../frontend/dist');
 if (fs.existsSync(frontendDistPath)) {
   app.use(express.static(frontendDistPath));
-  app.get('*', (req, res) => {
-    // Only route to index.html if it doesn't look like an API call
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(frontendDistPath, 'index.html'));
-    } else {
-      res.status(404).json({ error: 'API endpoint not found' });
+  
+  // Custom middleware fallback for SPA routing
+  app.use((req, res, next) => {
+    if (req.method === 'GET' && !req.path.startsWith('/api')) {
+      return res.sendFile(path.join(frontendDistPath, 'index.html'));
     }
+    next();
   });
 } else {
   // Helpful fall-back message if frontend isn't built yet
@@ -235,6 +294,10 @@ if (fs.existsSync(frontendDistPath)) {
   });
 }
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`[${new Date().toISOString()}] Server listening on port ${PORT} bound to 0.0.0.0`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`[${new Date().toISOString()}] Server listening on port ${PORT} bound to 0.0.0.0`);
+  });
+}
+
+module.exports = app;

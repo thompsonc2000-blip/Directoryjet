@@ -1,0 +1,26 @@
+{
+  "name": "directoryjet",
+  "version": "1.0.0",
+  "description": "DirectoryJet automates the tedious, time-consuming process of submitting startups and SaaS products to over 50+ premium startup directories, launch platforms, and communities. We save solo founders and indie hackers 20+ hours of manual data entry while securing high-quality SEO backlinks and initial traffic.",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "install": "cd backend && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thompsonc2000-blip/Directoryjet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/thompsonc2000-blip/Directoryjet/issues"
+  },
+  "homepage": "https://github.com/thompsonc2000-blip/Directoryjet#readme",
+  "dependencies": {
+    "vercel": "^54.17.1"
+  }
+}

@@ -2,12 +2,14 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
 
-const DB_PATH = '/home/team/shared/directoryjet.db';
+const DB_PATH = process.env.VERCEL ? ':memory:' : '/home/team/shared/directoryjet.db';
 
-// Ensure the directory exists
-const dir = path.dirname(DB_PATH);
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir, { recursive: true });
+// Ensure the directory exists if not in memory
+if (DB_PATH !== ':memory:') {
+  const dir = path.dirname(DB_PATH);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 }
 
 const db = new sqlite3.Database(DB_PATH, (err) => {
