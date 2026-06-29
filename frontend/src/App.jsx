@@ -265,11 +265,11 @@ export default function App() {
               </div>
               
               <h1 style={{ marginBottom: '16px', lineHeight: '1.1' }}>
-                Get Listed on <span style={{ background: 'linear-gradient(to right, var(--accent), #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>50+ High-Traffic</span> Startup Directories
+                Automated <span style={{ background: 'linear-gradient(to right, var(--accent), #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Startup Directory Submission Service</span> to 50+ Platforms
               </h1>
               
               <p style={{ fontSize: '20px', maxWidth: '750px', margin: '0 auto 32px', color: 'var(--text)' }}>
-                Automate 20+ hours of tedious manual data entry. Submit once to instantly secure organic backlinks, domain authority, and early traffic from the web's premium directories.
+                Stop wasting weeks on manual data entry. Our automated SaaS directory listings get you organic backlinks, high domain authority, and early user traffic instantly.
               </p>
 
               {/* Action Buttons & Access Code Search */}
@@ -320,7 +320,7 @@ export default function App() {
                 </div>
                 <h3 style={{ fontSize: '18px', fontWeight: '600', color: 'var(--text-h)', marginBottom: '8px' }}>Rapid Automation</h3>
                 <p style={{ fontSize: '15px', color: 'var(--text)' }}>
-                  Our advanced backend automates directory listings, form filling, and verification. No manual overhead.
+                  Our advanced backend automates submissions to our curated **startup directory list**, handling form filling and verification instantly.
                 </p>
               </div>
 
@@ -373,7 +373,7 @@ export default function App() {
                     }}
                     style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--accent)', color: 'var(--accent)', borderRadius: '6px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}
                   >
-                    Select Essential Jet
+                    Get Listed on 20 Directories
                   </button>
                 </div>
 
@@ -401,7 +401,7 @@ export default function App() {
                     }}
                     style={{ width: '100%', padding: '12px', background: 'linear-gradient(to right, var(--accent), #8b5cf6)', border: 'none', color: '#fff', borderRadius: '6px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', boxShadow: '0 4px 12px rgba(170, 59, 255, 0.3)' }}
                   >
-                    Select Premium Jet
+                    Boost SEO with 50+ Listings
                   </button>
                 </div>
 
@@ -426,8 +426,27 @@ export default function App() {
                     }}
                     style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--accent)', color: 'var(--accent)', borderRadius: '6px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}
                   >
-                    Select Agency Jet
+                    Scale Agency Submissions
                   </button>
+                </div>
+              </div>
+            </div>
+
+            {/* FAQ Section */}
+            <div style={{ marginTop: '80px', textAlign: 'left' }}>
+              <h2 style={{ fontSize: '32px', marginBottom: '32px', textAlign: 'center' }}>Frequently Asked Questions</h2>
+              <div style={{ display: 'grid', gap: '24px', maxWidth: '800px', margin: '0 auto' }}>
+                <div style={{ background: 'var(--code-bg)', border: '1px solid var(--border)', padding: '24px', borderRadius: '12px' }}>
+                  <h4 style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--text-h)', marginBottom: '8px' }}>What is startup directory submission?</h4>
+                  <p style={{ fontSize: '15px', color: 'var(--text)' }}>Startup directory submission is the process of listing your business on platforms like Product Hunt, BetaList, and Indie Hackers. It helps you gain high-quality SEO backlinks, increase domain authority, and drive early adoption traffic.</p>
+                </div>
+                <div style={{ background: 'var(--code-bg)', border: '1px solid var(--border)', padding: '24px', borderRadius: '12px' }}>
+                  <h4 style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--text-h)', marginBottom: '8px' }}>How many directories do you submit to?</h4>
+                  <p style={{ fontSize: '15px', color: 'var(--text)' }}>Depending on your chosen plan, we submit your startup to either 20 core directories or 50+ premium platforms. Our list is constantly updated to include only high-traffic and high-authority sites.</p>
+                </div>
+                <div style={{ background: 'var(--code-bg)', border: '1px solid var(--border)', padding: '24px', borderRadius: '12px' }}>
+                  <h4 style={{ fontSize: '18px', fontWeight: 'bold', color: 'var(--text-h)', marginBottom: '8px' }}>How long does it take to get listed?</h4>
+                  <p style={{ fontSize: '15px', color: 'var(--text)' }}>Our automated engine starts submissions immediately after payment. Most listings appear within 24-72 hours, though some premium directories have manual moderation queues that can take up to a week.</p>
                 </div>
               </div>
             </div>
